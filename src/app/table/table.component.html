@@ -1,0 +1,77 @@
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <div *ngFor="let role of userRoles">
+          <p class="function-text" style="transform: translateX(-430px) translateY(50px);">Function: {{ role }} >Transaction</p>
+
+
+          <div class="tree-container">
+            <button class="tree-button" (click)="toggleTreeGrid()">{{ buttonLabel }}
+
+
+            </button>
+
+            <div class="scrollable-tree" [@expandCollapse]="showTreeGrid ? 'expanded' : 'collapsed'">
+
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="margin-top: -50px;">
+                <!-- Tree node template -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding class="custom-tree-node">
+                  <div class="tree-node-content">
+                    <mat-checkbox class="tree-checkbox" (change)="onCheckboxClick(node.bloclibelle)"></mat-checkbox>
+                    <span class="tree-label">{{ node.bloclibelle }}</span>
+                  </div>
+                </mat-tree-node>
+
+                <!-- Nested tree node template -->
+                <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                  <div class="tree-node-content">
+                    <mat-checkbox class="tree-checkbox" (change)="onCheckboxClick(node.bloclibelle)"></mat-checkbox>
+                    <span class="tree-label">{{ node.bloclibelle }}</span>
+                  </div>
+                  <ng-container matTreeNodeOutlet></ng-container>
+                </mat-tree-node>
+              </mat-tree>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="table-wrap">
+
+          <div class="ag-theme-custom" style="width: 100%; height: 400px;">
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-material"
+              [rowData]="rowData"
+              [columnDefs]="columnDefs"
+              [gridOptions]="gridOptions"
+              *ngIf="selectedBloclibelles"
+            ></ag-grid-angular>
+          </div>
+
+          <table class="table table-responsive-xl">
+
+
+            <tbody>
+
+
+
+
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
